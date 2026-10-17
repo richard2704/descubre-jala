@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Descubre Jala — Turismo, Tradición y Sabor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #2F4A3C;
+    --green-dark: #203329;
+    --clay: #A85B2E;
+    --clay-dark: #7E4220;
+    --corn: #D9A628;
+    --stone: #F0E9DC;
+    --stone-2: #E6DCC8;
+    --ink: #2A241D;
+    --ink-soft: #5B5346;
+    --paper: #FBF8F2;
+    --line: rgba(42,36,29,0.14);
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --stone: #201B14;
+      --stone-2: #2A2319;
+      --paper: #18140F;
+      --ink: #F0E9DC;
+      --ink-soft: #C9BFA9;
+      --line: rgba(240,233,220,0.14);
+    }
+  }
+  :root[data-theme="dark"] {
+    --stone: #201B14;
+    --stone-2: #2A2319;
+    --paper: #18140F;
+    --ink: #F0E9DC;
+    --ink-soft: #C9BFA9;
+    --line: rgba(240,233,220,0.14);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px)); }
+  body {
+    margin: 0;
+    background: var(--stone);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.55;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--ink);
+    margin: 0;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .nav-inner {
+    max-width: 1080px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; }
+  .brand svg { width: 26px; height: 26px; flex-shrink: 0; }
+  .navlinks { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; font-size: 0.92rem; }
+  .navlinks a { text-decoration: none; color: var(--ink-soft); border-bottom: 1px solid transparent; padding-bottom: 3px; transition: border-color .15s, color .15s; }
+  .navlinks a:hover { color: var(--clay); border-color: var(--clay); }
+  .navtoggle { display: none; background: none; border: 1px solid var(--line); border-radius: 8px; width: 40px; height: 40px; font-size: 1.2rem; color: var(--ink); }
+  @media (max-width: 720px) {
+    .navlinks { display: none; }
+    .navtoggle { display: block; }
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--green) 0%, var(--green-dark) 100%);
+    color: var(--stone);
+    padding: 84px 0 0;
+  }
+  .hero .wrap { position: relative; z-index: 2; padding-bottom: 40px; }
+  .eyebrow-free { color: var(--corn); font-size: 0.95rem; margin-bottom: 14px; font-family: 'Inter', sans-serif; font-weight: 500; }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    line-height: 1.03;
+    font-weight: 600;
+    max-width: 780px;
+  }
+  .hero p.lede {
+    max-width: 540px;
+    font-size: 1.12rem;
+    color: rgba(240,233,220,0.86);
+    margin-top: 22px;
+  }
+  .hero-cta { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 13px 26px; border-radius: 999px;
+    font-size: 0.95rem; font-weight: 500; text-decoration: none;
+    border: 1px solid transparent; cursor: pointer; transition: transform .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-corn { background: var(--corn); color: var(--green-dark); }
+  .btn-outline { border-color: rgba(240,233,220,0.4); color: var(--stone); background: transparent; }
+
+  .volcano { width: 100%; height: auto; display: block; margin-top: 30px; }
+
+  /* SECTION shared */
+  section { padding: 88px 0; }
+  .section-head { max-width: 620px; margin-bottom: 46px; }
+  .section-head .kicker { color: var(--clay); font-family: 'Fraunces', serif; font-style: italic; font-size: 1.05rem; margin-bottom: 8px; }
+  .section-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.5rem); font-weight: 600; }
+  .section-head p { color: var(--ink-soft); margin-top: 14px; font-size: 1.02rem; }
+
+  /* DIRECTORIO */
+  #directorio { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+  .filter-btn {
+    background: transparent; border: 1px solid var(--line); color: var(--ink-soft);
+    padding: 9px 18px; border-radius: 999px; font-size: 0.88rem; cursor: pointer;
+    font-family: 'Inter', sans-serif; transition: all .15s;
+  }
+  .filter-btn.active, .filter-btn:hover { background: var(--green); color: var(--stone); border-color: var(--green); }
+
+  .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 22px; }
+  .card {
+    background: var(--stone); border: 1px solid var(--line); border-radius: 14px;
+    padding: 24px; display: flex; flex-direction: column; gap: 10px;
+  }
+
+  .card-img { margin: -24px -24px 6px; height: 170px; border-radius: 14px 14px 0 0; overflow: hidden; background: var(--stone-2); }
+  .card-img img, .card-img svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .tag { font-size: 0.72rem; letter-spacing: 0.02em; color: var(--clay); font-weight: 600; }
+  .card h3 { font-size: 1.2rem; font-weight: 600; }
+  .card .placeholder { color: var(--ink-soft); font-size: 0.92rem; }
+  .card .meta { font-size: 0.85rem; color: var(--ink-soft); border-top: 1px dashed var(--line); padding-top: 10px; margin-top: 4px; }
+  .ph { background: rgba(168,91,46,0.12); border: 1px dashed rgba(168,91,46,0.5); border-radius: 6px; padding: 1px 6px; color: var(--clay-dark); font-size: 0.88em; }
+
+  /* RUTAS (timeline) */
+  .timeline { position: relative; padding-left: 34px; }
+  .timeline::before { content: ''; position: absolute; left: 10px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+  .tl-item { position: relative; padding-bottom: 40px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-dot {
+    position: absolute; left: -34px; top: 2px; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--green); color: var(--stone); font-size: 0.72rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif;
+  }
+  .tl-item h3 { font-size: 1.15rem; margin-bottom: 6px; }
+  .tl-item .route-meta { font-size: 0.85rem; color: var(--clay-dark); margin-top: 8px; }
+
+  .routes-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 40px; }
+  .route-card { background: var(--stone); border: 1px solid var(--line); border-radius: 14px; padding: 28px; }
+  .route-card > h3.route-title { font-size: 1.3rem; margin-bottom: 22px; }
+
+  /* HISTORIA */
+  #historia { background: var(--green); color: var(--stone); }
+  #historia .section-head .kicker { color: var(--corn); }
+  #historia .section-head h2, #historia .section-head p { color: var(--stone); }
+  #historia .section-head p { color: rgba(240,233,220,0.78); }
+  .hist-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px; }
+  .hist-grid .block + .block { margin-top: 26px; }
+  .hist-grid h3 { font-size: 1.1rem; color: var(--corn); margin-bottom: 8px; font-weight: 600; }
+  .hist-grid p { color: rgba(240,233,220,0.82); font-size: 0.98rem; }
+  .hist-icon { width: 40px; height: 40px; margin-bottom: 12px; }
+  .hist-icon svg { width: 100%; height: 100%; }
+  .pending-note {
+    margin-top: 36px; padding: 16px 20px; border: 1px dashed rgba(168,91,46,0.5);
+    border-radius: 10px; background: rgba(168,91,46,0.08); color: var(--clay-dark); font-size: 0.9rem;
+  }
+  @media (max-width: 800px) { .hist-grid { grid-template-columns: 1fr; } }
+
+  /* CONTACTOS */
+  #contactos { background: var(--paper); }
+  .contact-list { border-top: 1px solid var(--line); }
+  .contact-row {
+    display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 20px;
+    padding: 20px 0; border-bottom: 1px solid var(--line); align-items: center;
+  }
+  .contact-row .role { color: var(--ink-soft); font-size: 0.88rem; }
+  .contact-row .name { font-weight: 600; font-family: 'Fraunces', serif; font-size: 1.05rem; }
+  @media (max-width: 640px) {
+    .contact-row { grid-template-columns: 1fr; gap: 4px; padding: 18px 0; }
+  }
+
+  footer {
+    background: var(--green-dark); color: rgba(240,233,220,0.6);
+    padding: 36px 0; font-size: 0.85rem; text-align: center;
+  }
+
+
+  button.card { text-align:left; font:inherit; color:inherit; cursor:pointer; width:100%; transition:transform .15s, box-shadow .15s; }
+  button.card:hover, button.card:focus-visible { transform:translateY(-3px); box-shadow:0 8px 22px rgba(0,0,0,.12); outline:2px solid var(--clay); outline-offset:2px; }
+  .card .meta.more { color:var(--clay); font-weight:600; }
+  .searchbar { display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:22px; }
+  .searchbar input { flex:1; min-width:220px; padding:12px 18px; border-radius:999px; border:1px solid var(--line); background:var(--stone); color:var(--ink); font:inherit; }
+  .count { color:var(--ink-soft); font-size:.88rem; }
+  .empty { color:var(--ink-soft); grid-column:1/-1; }
+  .modal { position:fixed; inset:0; z-index:100; background:rgba(20,16,10,.6); display:flex; align-items:center; justify-content:center; padding:20px; }
+  .modal[hidden] { display:none; }
+  .modal-box { background:var(--paper); color:var(--ink); border-radius:18px; max-width:760px; width:100%; max-height:92vh; overflow:auto; position:relative; }
+  .modal-img { height:280px; background:var(--stone-2); }
+  .modal-img svg, .modal-img img { width:100%; height:100%; object-fit:cover; display:block; }
+  .modal-body { padding:26px 30px 30px; }
+  .modal-body h3 { font-size:1.6rem; margin:6px 0 10px; }
+  .modal-body dl { margin:18px 0 0; display:grid; gap:12px; }
+  .modal-body dt { font-size:.78rem; font-weight:600; color:var(--clay); letter-spacing:.03em; text-transform:uppercase; }
+  .modal-body dd { margin:2px 0 0; color:var(--ink-soft); }
+  .modal-x { position:absolute; top:12px; right:12px; width:40px; height:40px; border-radius:50%; border:0; background:var(--paper); color:var(--ink); font-size:1.1rem; cursor:pointer; z-index:2; }
+  .modal-nav { display:flex; justify-content:space-between; gap:10px; margin-top:24px; }
+  .modal-nav button { padding:10px 18px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; font:inherit; }
+  .route-head { width:100%; display:flex; justify-content:space-between; align-items:center; gap:12px; background:none; border:0; padding:0; font:inherit; color:inherit; cursor:pointer; text-align:left; }
+  .route-head h3 { font-size:1.3rem; }
+  .route-head .chev { transition:transform .2s; font-size:1.2rem; color:var(--clay); }
+  .route-head[aria-expanded="true"] .chev { transform:rotate(180deg); }
+  .route-count { font-size:.82rem; color:var(--ink-soft); margin-top:2px; }
+  .route-body { margin-top:22px; }
+  .route-body[hidden] { display:none; }
+  .stop-thumb { height:96px; border-radius:10px; overflow:hidden; margin:10px 0 6px; }
+  .stop-thumb svg { width:100%; height:100%; display:block; }
+  .link-btn { background:none; border:0; padding:0; color:var(--clay); font:inherit; font-size:.88rem; font-weight:600; cursor:pointer; text-decoration:underline; }
+  .tabs { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px; }
+  .tab { padding:10px 20px; border-radius:999px; border:1px solid rgba(240,233,220,.4); background:transparent; color:var(--stone); font:inherit; cursor:pointer; }
+  .tab.active, .tab:hover { background:var(--corn); color:var(--green-dark); border-color:var(--corn); }
+  .hist-panel { display:grid; grid-template-columns:1fr 1.2fr; gap:36px; align-items:center; }
+  .hp-img { border-radius:16px; overflow:hidden; aspect-ratio:5/3; }
+  .hp-img svg { width:100%; height:100%; display:block; }
+  .hist-panel h3 { font-size:1.5rem; color:var(--corn); margin-bottom:10px; }
+  .hist-panel p { color:rgba(240,233,220,.86); }
+  @media (max-width:800px) { .hist-panel { grid-template-columns:1fr; } .modal-img { height:200px; } }
+  ::selection { background: var(--corn); color: var(--green-dark); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none"><path d="M4 30 L14 12 L20 20 L26 8 L36 30 Z" fill="var(--clay)"/><circle cx="26" cy="9" r="2.5" fill="var(--corn)"/></svg>
+      Descubre Jala
+    </div>
+    <ul class="navlinks">
+      <li><a href="#directorio">Directorio</a></li>
+      <li><a href="#rutas">Rutas</a></li>
+      <li><a href="#historia">Historia</a></li>
+      <li><a href="#contactos">Contactos</a></li>
+    </ul>
+    <button class="navtoggle" id="navToggle" aria-label="Abrir menú">☰</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow-free">Nayarit, México</div>
+    <h1>El volcán, el elote<br>y las manos que aún tejen historia.</h1>
+    <p class="lede">Un recorrido digital por los locales, rutas y tradiciones de Jala — hecho por y para la gente que la habita y quienes vienen a conocerla.</p>
+    <div class="hero-cta">
+      <a href="#directorio" class="btn btn-corn">Ver directorio de locales</a>
+      <a href="#rutas" class="btn btn-outline">Explorar rutas</a>
+    </div>
+  </div>
+  <svg class="volcano" viewBox="0 0 1080 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 180 L120 180 200 90 260 140 340 40 420 130 520 60 600 150 700 100 800 180 1080 180 Z" fill="rgba(240,233,220,0.06)"/>
+    <path d="M0 180 L160 180 240 120 320 160 420 70 500 150 620 110 720 170 900 130 1080 180 Z" fill="rgba(240,233,220,0.1)"/>
+  </svg>
+</header>
+
+<section id="directorio">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Negocios y artesanos</div>
+      <h2>Directorio de locales</h2>
+      <p>Cada ficha reúne quién es el local, qué hace y qué ofrece. Filtra por categoría para explorar.</p>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="todos">Todos</button>
+      <button class="filter-btn" data-filter="comida">Comida</button>
+      <button class="filter-btn" data-filter="artesania">Artesanía</button>
+      <button class="filter-btn" data-filter="hospedaje">Hospedaje</button>
+      <button class="filter-btn" data-filter="sitio">Sitio de interés</button>
+    </div>
+
+    <div class="searchbar"><input id="q" type="search" placeholder="Buscar local, sitio o platillo…" aria-label="Buscar"><span class="count" id="count"></span></div>
+    <div class="grid-cards" id="cardsGrid"></div>
+
+    <div class="pending-note">
+      Los sitios de interés (Basílica, Capilla, Museo, Volcán, Cascada) ya tienen información verificada. Las tarjetas de comida, artesanía y hospedaje siguen marcadas con <span class="ph">[placeholders]</span> — complétalas con las entrevistas a locatarios que planeaste en tu metodología.
+    </div>
+  </div>
+</section>
+
+<section id="rutas">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Recorridos sugeridos</div>
+      <h2>Rutas turísticas</h2>
+      <p>Tres recorridos temáticos por el pueblo, cada uno con sus paradas en orden y cómo llegar de una a otra.</p>
+    </div>
+    <div class="routes-wrap" id="routesWrap"></div>
+  </div>
+</section>
+
+<section id="historia">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Raíces</div>
+      <h2>Historia y tradiciones</h2>
+      <p>El fondo cultural que le da contexto a cada local y cada ruta.</p>
+    </div>
+    <div class="tabs" id="histTabs" role="tablist"></div>
+    <div class="hist-panel" id="histPanel"></div>
+  </div>
+</section>
+
+<section id="contactos">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Directorio</div>
+      <h2>Contactos importantes</h2>
+      <p>Personas clave para coordinar visitas, guías o información oficial.</p>
+    </div>
+    <div class="contact-list" id="contactList"></div>
+  </div>
+</section>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="modal-x" id="mClose" aria-label="Cerrar">✕</button>
+    <div class="modal-img" id="mImg"></div>
+    <div class="modal-body">
+      <div class="tag" id="mTag" style="color:var(--clay);font-weight:600;font-size:.75rem"></div>
+      <h3 id="mTitle"></h3>
+      <p id="mHist"></p>
+      <dl>
+        <div><dt>Qué ofrece</dt><dd id="mOferta"></dd></div>
+        <div><dt>Cómo llegar</dt><dd id="mUbic"></dd></div>
+        <div><dt>Horario y contacto</dt><dd id="mContacto"></dd></div>
+      </dl>
+      <div class="modal-nav"><button id="mPrev">← Anterior</button><button id="mNext">Siguiente →</button></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">Proyecto académico — Negocios Electrónicos 2 · Descubre Jala, Nayarit</div>
+</footer>
+
+<script>
+  // ---------- DATOS: reemplaza los placeholders con información real ----------
+  // Sitios de interés: información real y verificada (fuentes: Pueblos Mágicos / VisitMéxico / prensa turística).
+  // Comida, artesanía y hospedaje: locales específicos pendientes de tu levantamiento de campo — reemplaza los placeholders.
+  const locales = [
+    { nombre: "Basílica Lateranense de Nuestra Señora de la Asunción", ilus: "basilica", imagen: "https://imgs.search.brave.com/m5yFYmLmaq7BL0YGgH1Qf67S_9AWb1tWFRewuwdrYOc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/dmlhamFib25pdG8u/bXgvd3AtY29udGVu/dC91cGxvYWRzLzIw/MjEvMDQvcHVlYmxv/LW1hZ2ljby1uYXlh/cml0LTA2LWphbGEu/anBn", categoria: "sitio", tag: "Sitio de interés", historia: "Construida entre 1856 y 1890, consagrada en 1912 y elevada a Basílica Lateranense en 1961. Es el símbolo religioso e histórico más importante del pueblo, con cantera en tonos rosa, verde y amarillo.", oferta: "Visita al templo; es el punto central de la Feria del Elote y de la fiesta de la Virgen de la Asunción.", ubicacion: "Centro histórico de Jala." },
+    { nombre: "Antigua Capilla de San Francisco", ilus: "capilla", imagen: "https://imgs.search.brave.com/8F0q4XryyMrAqWa-Qgde814g7dz1i1YgVyCvzI4D1oQ/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vaW52ZXJz/aW9uLXR1cmlzdGlj/YS5jb20vd3AtY29u/dGVudC91cGxvYWRz/LzIwMTgvMDkvSU1H/XzIwMTgwOTA4XzE3/MzEyNi5qcGc_dz0y/MDkmaD0yMDkmY3Jv/cD0xJnNzbD0x", categoria: "sitio", tag: "Sitio de interés", historia: "Capilla de cantera rosa que combina estilos gótico y románico; data de 1528. Los locales la conocen cariñosamente como \"la viejita\".", oferta: "Recorrido arquitectónico e histórico por uno de los templos más antiguos del pueblo.", ubicacion: "Centro histórico de Jala." },
+    { nombre: "Museo Comunitario de Jala", ilus: "museo", imagen: "https://imgs.search.brave.com/IYOiZL3KslRucrvo68Gq_XqvC-OEhw7zGxArZK2tsGw/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly91cHJv/b3RlZHRyYXZlbGVy/LmNvbS93cC1jb250/ZW50L3VwbG9hZHMv/amFsYS1uYXlhcml0/LXB1ZWJsby1tYWdp/Y28tamFsYS1tZXhp/Y28tbmF5YXJpdC1w/dWVibG8tbWFnaWNv/LTEuanBlZw", categoria: "sitio", tag: "Sitio de interés", historia: "Resguarda piezas prehispánicas encontradas en la región de Nayarit.", oferta: "Exhibición de piezas arqueológicas; ideal para entender el pasado prehispánico del municipio.", ubicacion: "[Confirmar dirección exacta]" },
+    { nombre: "Volcán Ceboruco", ilus: "volcan", imagen: "https://imgs.search.brave.com/F5cFsNFM4TmXj_-JtBXlSjKAptjEiI_zDT56hmCLrcY/rs:fit:500:0:1:0/g:ce/aHR0cDovL25heWFy/aXQuZXMvd3AtY29u/dGVudC91cGxvYWRz/LzIwMjMvMDUvTGV0/cmFzLVZvbGNhbi1F/bC1DZWJvcnVjby0x/MDI0eDUzOC5qcGc", categoria: "sitio", tag: "Sitio de interés", historia: "Único volcán activo de Nayarit. Su última erupción, en 1870, esparció cenizas que enriquecieron la tierra donde hoy crece el maíz gigante de Jala.", oferta: "Senderismo y trekking; se pueden observar sus fumarolas de vapor, actualmente en estado pasivo.", ubicacion: "A las faldas del volcán, acceso por carretera desde Jala." },
+    { nombre: "Cascada El Salto del Jomulco", ilus: "cascada", imagen: "https://imgs.search.brave.com/QnMHA6WZCqKvVrUYcqxHKbTneuw14frLKLRsANvfbWI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9nZW50/ZW5heWFyaXQuY29t/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDE5/LzA0L2FjdGl2aWRh/ZGVzLXByaW5jaXBh/bGVzX25heWFyaXRf/amFsYV9jYXNjYWRh/LXNhbHRvLWRlLWph/bGEtYmVsbGV6YS1u/YXlhcml0YV8wMS02/OTZ4MzU3LmpwZw", categoria: "sitio", tag: "Sitio de interés", historia: "Caída de agua cristalina de unos 30 metros, visitable especialmente entre julio y septiembre.", oferta: "Caminata de aproximadamente 1 km desde el pueblo hasta la cascada.", ubicacion: "A un kilómetro del centro de Jala." },
+    { nombre: "Fonda Doña Velva", ilus: "comida", imagen: "https://imgs.search.brave.com/WpEUM7_kBrZr8EgcTeUU_uXIJqZ7_zIM6EBEu11fyOA/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9lc2Nh/cGFkYXMubWV4aWNv/ZGVzY29ub2NpZG8u/Y29tLm14L3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIzLzAzL3Rv/c3RhZGFzLWdpZ2Fu/dGVzLWZvbmRhLWRv/bmEtbWVsdmEtamFs/YS1uYXlhcml0Lmpw/Zw", categoria: "comida", tag: "Comida", historia: "Fonda Doña Melva es un restaurante de comida mexicana típica ubicado en Jala, Nayarit, que ofrece desayunos, almuerzos, brunch y bebidas en un ambiente familiar. Se encuentra en José María Morelos 110, cuenta con estacionamiento en la calle y, según reseñas recientes, es solo de efectivo. ", oferta: "Garnachas, sopes, gorditas rellenas, chilaquiles y huevos al gusto. También hay enchiladas, tacos dorados y pozole. Aquí hay que probar las tostadas raspadas, que son enormes, se sirven con picadillo o pierna de cerdo, lechuga y salsa.", ubicacion: "Fonda Doña Melva, José María Morelos, San Francisco, Centro, Jala, Nay., México" },
+    { nombre: "Cenaduria Marivel", ilus: "comida", imagen: "", categoria: "comida", tag: "Comida", historia: "[Breve historia: quién es, desde cuándo]", oferta: "La Cenaduría Maribel es un restaurante ubicado en Jala, Nayarit, especializado en la gastronomía local.  ", ubicacion: "Allende 18, San Francisco, Centro, 63890 Jala, Nay., Mexico" },
+    { nombre: "[Nombre del artesano/local]", ilus: "artesania", imagen: "", categoria: "artesania", tag: "Artesanía", historia: "[Breve historia: quién es, desde cuándo]", oferta: "[Ej. figuras con hoja de maíz y piedra volcánica, cestería con barba de pino]", ubicacion: "[Ubicación / cómo llegar]" },
+    { nombre: "[Nombre del artesano/local]", ilus: "artesania", imagen: "", categoria: "artesania", tag: "Artesanía", historia: "[Breve historia: quién es, desde cuándo]", oferta: "[Ej. chiquihuites con otate, sillas tejidas con palma]", ubicacion: "[Ubicación / cómo llegar]" },
+    { nombre: "[Nombre del local]", ilus: "hospedaje", imagen: "", categoria: "hospedaje", tag: "Hospedaje", historia: "[Breve historia: quién es, desde cuándo]", oferta: "[Tipo de hospedaje y servicios]", ubicacion: "[Ubicación / cómo llegar]" },
+  ];
+
+  const rutas = [
+    {
+      titulo: "Ruta histórica y colonial",
+      paradas: [
+        { nombre: "Basílica Lateranense de Nuestra Señora de la Asunción", detalle: "Punto de partida, en el centro histórico." },
+        { nombre: "Antigua Capilla de San Francisco (\"la viejita\")", detalle: "A pocas cuadras de la Basílica, caminando por el centro." },
+        { nombre: "Museo Comunitario de Jala", detalle: "[Confirmar distancia a pie desde la capilla]" },
+      ],
+    },
+    {
+      titulo: "Ruta de naturaleza y volcán",
+      paradas: [
+        { nombre: "Cascada El Salto del Jomulco", detalle: "Aprox. 1 km desde el centro de Jala; visitable de julio a septiembre." },
+        { nombre: "Senderos del Volcán Ceboruco", detalle: "Acceso por carretera desde Jala; recomendable ir con guía local para el trekking." },
+      ],
+    },
+    {
+      titulo: "Ruta gastronómica y artesanal",
+      paradas: [
+        { nombre: "[Local de comida típica — tostadas raspadas / gorditas de horno]", detalle: "[Cómo llegar desde el centro]" },
+        { nombre: "[Taller de artesanías en hoja de maíz o piedra volcánica]", detalle: "[Cómo llegar desde la parada anterior]" },
+        { nombre: "[Puesto de dulces regionales — rosquetes, encanelados]", detalle: "[Cómo llegar desde la parada anterior]" },
+      ],
+    },
+  ];
+
+  const contactos = [
+    { nombre: "[Nombre completo]", rol: "[Guía turístico / Encargado de...]", medio: "[Teléfono / WhatsApp]" },
+    { nombre: "[Nombre completo]", rol: "[Historiador de la región]", medio: "[Teléfono / correo]" },
+    { nombre: "[Nombre completo]", rol: "[Representante del ayuntamiento]", medio: "[Teléfono / correo]" },
+  ];
+
+
+  // ---------- Ilustraciones de respaldo (se muestran si no hay foto o no carga) ----------
+  const bg = (inner) => `<svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+  const ILUS = {
+    basilica: bg(`<rect width="400" height="240" fill="#E9C98E"/><rect y="190" width="400" height="50" fill="#8A6A45"/>
+      <rect x="120" y="90" width="160" height="100" fill="#D98C8C"/><rect x="150" y="50" width="30" height="60" fill="#C97676"/><rect x="220" y="50" width="30" height="60" fill="#C97676"/>
+      <path d="M150 50 L165 25 L180 50Z M220 50 L235 25 L250 50Z" fill="#A85B2E"/><path d="M175 190 V140 a25 25 0 0 1 50 0 V190Z" fill="#5A3B26"/>
+      <circle cx="200" cy="112" r="10" fill="#F0E9DC"/>`),
+    capilla: bg(`<rect width="400" height="240" fill="#CFE0D0"/><rect y="195" width="400" height="45" fill="#7C8F6F"/>
+      <rect x="140" y="110" width="120" height="85" fill="#D98C8C"/><path d="M130 110 L200 60 L270 110Z" fill="#B96A6A"/>
+      <rect x="192" y="40" width="16" height="30" fill="#B96A6A"/><path d="M200 34 v14 M193 41 h14" stroke="#F0E9DC" stroke-width="2"/>
+      <path d="M180 195 V150 a20 20 0 0 1 40 0 V195Z" fill="#5A3B26"/>`),
+    museo: bg(`<rect width="400" height="240" fill="#E7DCC6"/><rect y="195" width="400" height="45" fill="#A98A63"/>
+      <path d="M100 100 L200 55 L300 100Z" fill="#8A6A45"/><rect x="110" y="100" width="180" height="95" fill="#D9B98A"/>
+      <rect x="128" y="110" width="16" height="85" fill="#F0E9DC"/><rect x="170" y="110" width="16" height="85" fill="#F0E9DC"/><rect x="214" y="110" width="16" height="85" fill="#F0E9DC"/><rect x="256" y="110" width="16" height="85" fill="#F0E9DC"/>`),
+    volcan: bg(`<rect width="400" height="240" fill="#F2D9A6"/><circle cx="310" cy="60" r="22" fill="#D9A628"/>
+      <path d="M0 240 L110 120 L160 150 L230 50 L300 140 L400 100 V240Z" fill="#2F4A3C"/><path d="M0 240 L90 160 L200 200 L320 150 L400 190 V240Z" fill="#203329"/>
+      <path d="M215 62 q10 -22 20 0" stroke="#F0E9DC" stroke-width="3" fill="none" opacity=".7"/>`),
+    cascada: bg(`<rect width="400" height="240" fill="#BFD8C8"/><rect x="0" y="0" width="90" height="240" fill="#4F6B4A"/><rect x="310" y="0" width="90" height="240" fill="#3F5A3E"/>
+      <rect x="170" y="20" width="60" height="150" rx="6" fill="#DCEFF2"/><path d="M180 30 V165 M200 25 V170 M220 30 V165" stroke="#fff" stroke-width="3" opacity=".8"/>
+      <ellipse cx="200" cy="185" rx="80" ry="20" fill="#7FB6C4"/>`),
+    comida: bg(`<rect width="400" height="240" fill="#F1D9A0"/><ellipse cx="200" cy="140" rx="110" ry="50" fill="#C9884A"/><ellipse cx="200" cy="130" rx="95" ry="38" fill="#E6B26A"/>
+      <path d="M150 128 h100 M160 118 h80" stroke="#A85B2E" stroke-width="5" stroke-linecap="round"/><circle cx="185" cy="122" r="6" fill="#D9A628"/><circle cx="215" cy="126" r="6" fill="#2F4A3C"/>`),
+    artesania: bg(`<rect width="400" height="240" fill="#E9DDC4"/><path d="M150 190 Q150 110 200 110 Q250 110 250 190Z" fill="#A85B2E"/>
+      <path d="M160 150 H240 M156 170 H244" stroke="#F0E9DC" stroke-width="4"/><path d="M175 110 Q200 70 225 110" stroke="#7E4220" stroke-width="6" fill="none"/>
+      <rect y="190" width="400" height="50" fill="#B99A6E"/>`),
+    hospedaje: bg(`<rect width="400" height="240" fill="#D9E3EA"/><rect y="190" width="400" height="50" fill="#8FA58C"/>
+      <rect x="130" y="100" width="140" height="90" fill="#EDE3D0"/><path d="M115 100 L200 45 L285 100Z" fill="#A85B2E"/>
+      <rect x="185" y="140" width="30" height="50" fill="#5A3B26"/><rect x="145" y="120" width="26" height="26" fill="#9CC3D5"/><rect x="229" y="120" width="26" height="26" fill="#9CC3D5"/>`)
+  };
+  function cardImage(l) {
+    const fallback = ILUS[l.ilus] || ILUS.sitio || '';
+    if (!l.imagen) return `<div class="card-img">${fallback}</div>`;
+    return `<div class="card-img"><img src="${l.imagen}" alt="${l.nombre}" loading="lazy" onerror="this.parentNode.innerHTML=decodeURIComponent('${encodeURIComponent(fallback)}')"></div>`;
+  }
+
+  // ---------- Ilustración extra: elote ----------
+  ILUS.elote = bg(`<rect width="400" height="240" fill="#F6E3A8"/><rect y="190" width="400" height="50" fill="#7A9A4E"/>
+    <path d="M30 190 V80 M70 190 V60 M330 190 V70 M370 190 V90" stroke="#5E8040" stroke-width="10" stroke-linecap="round"/>
+    <path d="M150 200 Q120 120 175 60 Q200 130 200 200Z M250 200 Q280 120 225 60 Q200 130 200 200Z" fill="#4F7A3A"/>
+    <rect x="168" y="38" width="64" height="150" rx="32" fill="#E8B923"/>
+    <path d="M168 70 H232 M168 100 H232 M168 130 H232 M168 160 H232 M184 38 V188 M200 38 V188 M216 38 V188" stroke="#C99512" stroke-width="2"/>
+    <text x="300" y="50" text-anchor="middle" font-size="14" fill="#7E4220" font-family="sans-serif">hasta 60 cm</text>`);
+
+  // ---------- Directorio: tarjetas, búsqueda y ficha desplegable ----------
+  const cardsGrid = document.getElementById('cardsGrid');
+  let curFilter = 'todos', q = '', shown = [], current = 0;
+  const norm = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  function renderCards() {
+    const list = locales.map((l, i) => ({ l, i })).filter(({ l }) =>
+      (curFilter === 'todos' || l.categoria === curFilter) && norm([l.nombre, l.historia, l.oferta].join(' ')).includes(norm(q)));
+    shown = list.map(x => x.i);
+    cardsGrid.innerHTML = list.length ? '' : '<p class="empty">No hay resultados. Prueba otra palabra o categoría.</p>';
+    list.forEach(({ l, i }) => {
+      const c = document.createElement('button');
+      c.type = 'button'; c.className = 'card';
+      c.innerHTML = `${cardImage(l)}<div class="tag">${l.tag.toUpperCase()}</div><h3>${l.nombre}</h3><p class="placeholder">${l.historia}</p><div class="meta more">Ver detalles →</div>`;
+      c.onclick = () => openModal(i);
+      cardsGrid.appendChild(c);
+    });
+    document.getElementById('count').textContent = list.length + (list.length === 1 ? ' resultado' : ' resultados');
+  }
+  renderCards();
+  document.getElementById('filters').addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-btn'); if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); curFilter = btn.dataset.filter; renderCards();
+  });
+  document.getElementById('q').addEventListener('input', (e) => { q = e.target.value; renderCards(); });
+
+  const modal = document.getElementById('modal');
+  function openModal(i) {
+    const l = locales[i]; current = i;
+    const fb = ILUS[l.ilus] || '';
+    document.getElementById('mImg').innerHTML = l.imagen
+      ? `<img src="${l.imagen}" alt="${l.nombre}" onerror="this.parentNode.innerHTML=decodeURIComponent('${encodeURIComponent(fb)}')">` : fb;
+    document.getElementById('mTag').textContent = l.tag.toUpperCase();
+    document.getElementById('mTitle').textContent = l.nombre;
+    document.getElementById('mHist').textContent = l.historia;
+    document.getElementById('mOferta').textContent = l.oferta;
+    document.getElementById('mUbic').textContent = l.ubicacion;
+    document.getElementById('mContacto').textContent = l.contacto || '[Completar horario y teléfono]';
+    modal.hidden = false; document.body.style.overflow = 'hidden';
+    document.getElementById('mClose').focus();
+  }
+  function closeModal() { modal.hidden = true; document.body.style.overflow = ''; }
+  function step(d) {
+    const pos = shown.indexOf(current); if (pos < 0 || !shown.length) return;
+    openModal(shown[(pos + d + shown.length) % shown.length]);
+  }
+  document.getElementById('mClose').onclick = closeModal;
+  document.getElementById('mPrev').onclick = () => step(-1);
+  document.getElementById('mNext').onclick = () => step(1);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (modal.hidden) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  // ---------- Rutas (acordeón) ----------
+  const routesWrap = document.getElementById('routesWrap');
+  rutas.forEach((r, ri) => {
+    const card = document.createElement('div');
+    card.className = 'route-card';
+    let stops = '';
+    r.paradas.forEach((p, i) => {
+      const idx = locales.findIndex(l => l.categoria === 'sitio' && (p.nombre.includes(l.nombre) || l.nombre.includes(p.nombre)));
+      const thumb = idx >= 0 ? `<div class="stop-thumb">${ILUS[locales[idx].ilus]}</div><button type="button" class="link-btn" data-idx="${idx}">Ver ficha del lugar</button>` : '';
+      stops += `<div class="tl-item"><div class="tl-dot">${i + 1}</div><h3>${p.nombre}</h3><div class="route-meta">${p.detalle}</div>${thumb}</div>`;
+    });
+    const open = ri === 0;
+    card.innerHTML = `<button type="button" class="route-head" aria-expanded="${open}"><div><h3>${r.titulo}</h3><div class="route-count">${r.paradas.length} paradas</div></div><span class="chev">▾</span></button><div class="route-body" ${open ? '' : 'hidden'}><div class="timeline">${stops}</div></div>`;
+    const head = card.querySelector('.route-head'), body = card.querySelector('.route-body');
+    head.onclick = () => { const o = head.getAttribute('aria-expanded') === 'true'; head.setAttribute('aria-expanded', !o); body.hidden = o; };
+    card.querySelectorAll('.link-btn').forEach(bt => bt.onclick = () => openModal(+bt.dataset.idx));
+    routesWrap.appendChild(card);
+  });
+
+  // ---------- Historia (pestañas) ----------
+  const historia = [
+    { k: 'Origen del pueblo', ilus: 'basilica', t: 'El nombre Jala viene del náhuatl Xalli ("arena") y Tla ("lugar donde abunda"): "lugar donde abunda la arena". Fue el primer asentamiento con población nahuatlaca de la región y más tarde fue evangelizado por frailes de Ahuacatlán. Con la Constitución del Estado de Nayarit del 5 de febrero de 1918, Jala pasó de pueblo a villa y municipio. El 29 de septiembre de 2012 fue incorporado al programa de Pueblos Mágicos.' },
+    { k: 'El volcán Ceboruco', ilus: 'volcan', t: 'Es el único volcán activo de Nayarit, hoy en estado pasivo y seguro de visitar, incluidas sus fumarolas de vapor. Su última erupción, en 1870, esparció ceniza volcánica sobre la tierra de Jala; muchos atribuyen a esa ceniza la fertilidad que hoy produce el maíz gigante que distingue al pueblo.' },
+    { k: 'Feria del Elote', ilus: 'elote', t: 'Se celebra cada año a mediados de agosto, en honor a la Virgen de la Asunción y a la cosecha del maíz. Tiene raíces en las comunidades indígenas coras y huicholes, que cultivan maíz en la región desde tiempos precolombinos. Durante ocho días hay danzas, música y el Concurso del Elote Más Grande del Mundo: la raza de maíz nativa de Jala ha producido mazorcas de hasta 60 cm y es patrimonio biológico, agrícola y cultural de Nayarit.' },
+    { k: 'Artesanías', ilus: 'artesania', t: 'Jala conserva técnicas transmitidas de generación en generación: figuras hechas con hoja de maíz y piedra volcánica, cestería tejida con barba de pino, chiquihuites elaborados con otate y sillas tejidas con palma. Combinan los materiales del volcán y del campo con oficios que siguen vivos hoy.' },
+  ];
+  const histTabs = document.getElementById('histTabs'), histPanel = document.getElementById('histPanel');
+  function showHist(i) {
+    [...histTabs.children].forEach((b, j) => { b.classList.toggle('active', i === j); b.setAttribute('aria-selected', i === j); });
+    const h = historia[i];
+    histPanel.innerHTML = `<div class="hp-img">${ILUS[h.ilus]}</div><div><h3>${h.k}</h3><p>${h.t}</p></div>`;
+  }
+  historia.forEach((h, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'tab'; b.setAttribute('role', 'tab');
+    b.textContent = h.k; b.onclick = () => showHist(i); histTabs.appendChild(b);
+  });
+  showHist(0);
+
+  // ---------- Render contactos ----------
+  const contactList = document.getElementById('contactList');
+  contactos.forEach(c => {
+    const row = document.createElement('div');
+    row.className = 'contact-row';
+    row.innerHTML = `
+      <div class="name">${c.nombre}</div>
+      <div class="role">${c.rol}</div>
+      <div class="role">${c.medio}</div>
+    `;
+    contactList.appendChild(row);
+  });
+
+  document.getElementById('navToggle').addEventListener('click', () => {
+    const links = document.querySelector('.navlinks');
+    const visible = links.style.display === 'flex';
+    links.style.display = visible ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '64px';
+    links.style.right = '20px';
+    links.style.background = 'var(--paper)';
+    links.style.border = '1px solid var(--line)';
+    links.style.borderRadius = '12px';
+    links.style.padding = '16px 20px';
+    links.style.gap = '14px';
+  });
+</script>
+
+</body>
+</html>
